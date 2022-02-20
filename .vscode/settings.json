@@ -1,0 +1,12 @@
+{
+  "files.associations": {
+    ".*lintrc": "json",
+    "stdio.h": "c",
+    "stdlib.h": "c"
+  },
+  "C_Cpp.errorSquiggles": "Disabled",
+  "code-runner.runInTerminal": true,
+  "code-runner.executorMap": {
+    "c": "cd $dir && gcc $fileName -o main && $dir/main < $workspaceRoot/input",
+  }
+}
