@@ -5,8 +5,11 @@
       "name": "gcc - アクティブ ファイルのビルドとデバッグ",
       "type": "cppdbg",
       "request": "launch",
-      "program": "${fileDirname}/${fileBasenameNoExtension}",
-      "args": [],
+      "program": "${fileDirname}/main",
+      "args": [
+        "<",
+        "${workspaceFolder}/input"
+      ],
       "stopAtEntry": false,
       "cwd": "${fileDirname}",
       "environment": [],
