@@ -7,6 +7,6 @@
   "C_Cpp.errorSquiggles": "Disabled",
   "code-runner.runInTerminal": true,
   "code-runner.executorMap": {
-    "c": "cd $dir && gcc $fileName -o main && $dir/main < $workspaceRoot/input",
+    "c": "cd $dir && gcc $fileName -o main && $dirmain < $workspaceRoot/input",
   }
 }
