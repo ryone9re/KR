@@ -4,7 +4,7 @@ int lower(char c);
 
 int main()
 {
-  char c = 'Z';
+  char c = 'A';
 
   c = lower(c);
   printf("%c\n", c);

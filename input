@@ -1,15 +1,1 @@
-#include <stdio.h>
-
-/* Hello this is a comment */
-void main()
-{
-  /*
-  This is also
-  comment.
-  do you see "that"?
-  */
-  printf("hello, ");
-  // printf("HI!");
-  printf("world");
-  printf("\n");
-}
+hello
