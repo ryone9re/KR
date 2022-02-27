@@ -2,7 +2,8 @@
   "files.associations": {
     ".*lintrc": "json",
     "stdio.h": "c",
-    "stdlib.h": "c"
+    "stdlib.h": "c",
+    "math.h": "c"
   },
   "C_Cpp.errorSquiggles": "Disabled",
   "code-runner.runInTerminal": true,

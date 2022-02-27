@@ -7,12 +7,18 @@
 void   push(double t);
 double pop(void);
 int    getop(char s[]);
+void   printstack(void);
+void   cpstack(void);
+void   exchangestack(void);
+void   sinstack(void);
+void   expstack(void);
+void   powstack(void);
 
 int main(void)
 {
-	int    type;
+	int    type, i;
 	double op2;
-	char   s[MAXSIZE];
+	char   s[MAXSIZE], f[MAXSIZE];
 
 	while ((type = getop(s)) != EOF)
 	{
@@ -52,6 +58,24 @@ int main(void)
 			{
 				printf("error: zero divisor\n");
 			}
+			break;
+		case 'i':
+			printstack();
+			break;
+		case 'c':
+			cpstack();
+			break;
+		case 'k':
+			exchangestack();
+			break;
+		case 's':
+			sinstack();
+			break;
+		case 'e':
+			expstack();
+			break;
+		case 'p':
+			powstack();
 			break;
 		case '\n':
 			printf("\t%.8g\n", pop());

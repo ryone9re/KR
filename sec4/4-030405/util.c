@@ -1,3 +1,4 @@
+#include <math.h>
 #include <stdio.h>
 
 extern int sp;
@@ -38,4 +39,29 @@ void exchangestack(void)
 	{
 		printf("error: need more than 2 number in stack");
 	}
+}
+
+void sinstack()
+{
+	double x;
+
+	x = pop();
+	push(sin(x));
+}
+
+void expstack()
+{
+	double x;
+
+	x = pop();
+	push(exp(x));
+}
+
+void powstack()
+{
+	double x, y;
+
+	y = pop();
+	x = pop();
+	push(pow(x, y));
 }
