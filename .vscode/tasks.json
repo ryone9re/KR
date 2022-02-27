@@ -8,6 +8,9 @@
         "-fdiagnostics-color=always",
         "-g",
         "${file}",
+        "${fileDirname}/operand.c",
+        "${fileDirname}/stack.c",
+        "${fileDirname}/util.c",
         "-o",
         "main"
       ],
