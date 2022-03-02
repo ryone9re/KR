@@ -1,7 +1,7 @@
-Hello
-Im hogehoge
-Nice to meet you
-asf
-bcsb
-COZW
-LMWFV
+#include <stdio.h>
+#define SIZE 10
+
+int main()
+{
+	printf("Hello world");
+}
