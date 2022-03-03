@@ -1,7 +1,2 @@
-#include <stdio.h>
-#define SIZE 10
-
-int main()
-{
-	printf("Hello world");
-}
+Hello world
+LLoo

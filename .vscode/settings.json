@@ -3,7 +3,9 @@
     ".*lintrc": "json",
     "stdio.h": "c",
     "stdlib.h": "c",
-    "math.h": "c"
+    "math.h": "c",
+    "cstdarg": "c",
+    "cstdlib": "c"
   },
   "C_Cpp.errorSquiggles": "Disabled",
   "code-runner.runInTerminal": true,
