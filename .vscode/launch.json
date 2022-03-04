@@ -8,7 +8,9 @@
       "program": "${fileDirname}/main",
       "args": [
         "<",
-        "${workspaceFolder}/input"
+        "${workspaceFolder}/input",
+        // ">",
+        // "${workspaceFolder}/output"
       ],
       "stopAtEntry": false,
       "cwd": "${fileDirname}",
