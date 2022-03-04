@@ -64,53 +64,78 @@ int _fillbuf(FILE *fp)
 	return (unsigned char) *fp->ptr++;
 }
 
-int fflush(FILE *fp)
+int fflush(FILE *f)
 {
-	if (fp == NULL)
-	{
-		int result = 0;
-		for (int i = 0; i < OPEN_MAX; i++)
-			if (((&_iob[i])->flag & _WRITE) == _WRITE && fflush(&_iob[i]) == EOF)
-				result = EOF;
-		return result;
-	}
-	else if (fp < _iob || fp >= _iob + OPEN_MAX)
-		return EOF;
-	else if ((fp->flag & (_WRITE | _ERR | _READ)) != _WRITE)
-		return EOF;
+	int   retval;
+	int   i;
+	FILE *fp;
 
-	int bufsize = (fp->flag & _UNBUF) ? 1 : BUFSIZ;
-	if (fp->base == NULL)
+	retval = 0;
+
+	if (f == NULL)
 	{
-		if ((fp->base = (char *) malloc(bufsize)) == NULL)
-		{
-			fp->flag |= _ERR;
-			return EOF;
-		}
+		for (fp = _iob; fp < _iob + OPEN_MAX; fp++)
+			if ((fp->flag & _WRITE) == 0 && fflush(fp) == -1)
+				retval = -1;
 	}
 	else
 	{
-		int n = fp->ptr - fp->base;
-		if (write(fp->fd, fp->base, n) != n)
-		{
-			fp->flag |= _ERR;
-			return EOF;
-		}
+		if ((f->flag & _WRITE) == 0)
+			return -1;
+		_flushbuf(EOF, f);
+		if (f->flag & _ERR)
+			retval = -1;
 	}
-	fp->ptr = fp->base;
-	fp->cnt = bufsize;
-	return 0;
+	return retval;
 }
 
-int _flushbuf(int c, FILE *fp)
+int _flushbuf(int c, FILE *f)
 {
-	if (fp == NULL)
+	int           num_written, bufsize;
+	unsigned char uc = c;
+
+	if ((f->flag & (_WRITE | _EOF | _ERR)) != _WRITE)
+	{
 		return EOF;
-	else if (fflush(fp) == EOF)
+	}
+
+	if (f->base == NULL && ((f->flag & _UNBUF) == 0))
+	{
+		if ((f->base = malloc(BUFSIZ)) == NULL)
+			f->flag |= _UNBUF;
+		else
+		{
+			f->ptr = f->base;
+			f->cnt = BUFSIZ - 1;
+		}
+	}
+
+	if (f->flag & _UNBUF)
+	{
+		f->ptr = f->base = NULL;
+		f->cnt = 0;
+		if (c == EOF)
+		{
+			return EOF;
+		}
+		num_written = write(f->fd, &uc, 1);
+		bufsize = 1;
+	}
+	else
+	{
+		bufsize = (int) (f->ptr - f->base);
+		num_written = write(f->fd, f->base, bufsize);
+		f->ptr = f->base;
+		f->cnt = BUFSIZ - 1;
+	}
+
+	if (num_written == bufsize)
+		return c;
+	else
+	{
+		f->flag |= _ERR;
 		return EOF;
-	*fp->ptr = (unsigned char) c;
-	fp->cnt--;
-	return *fp->ptr++;
+	}
 }
 
 int fseek(FILE *fp, long offset, int origin)
@@ -121,4 +146,18 @@ int fseek(FILE *fp, long offset, int origin)
 		return 0;
 	else
 		return -1;
+}
+
+int mfclose(FILE *fp) // success 0, error EOF
+{
+	int i;
+
+	fp->ptr = fp->base = NULL;
+	fp->cnt = 0;
+	fp->flag = 00;
+	i = close(fp->fd);
+	if (i == 0)
+		return 0;
+	else
+		return EOF;
 }
